@@ -1,16 +1,28 @@
 pipeline {
-  agent {
-    // this image provides everything needed to run Cypress
-    docker {
-      image 'cypress/base:14.17.0'
+    agent any
+    tools {nodejs "node"}
+    stages {
+        stage('Node') {
+            steps {
+                git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
+                bat 'npm install'
+                bat 'npm update'
+                bat 'npm run allure:clear'
+                bat 'npm run cy:attachments.spec'
+            }
+        }
     }
-  }
-
-  stages {
-    stage('build and test') {
-      steps {
-        sh "yarn run cy:attachments.spec"
-      }
-    }
-  }
+          post {
+              always {
+                  script { // Wygenerowanie raportu allurowego
+                      allure([
+                              includeProperties: false,
+                              jdk              : '',
+                              properties       : [],
+                              reportBuildPolicy: 'ALWAYS',
+                              results          : [[path: 'target/allure-results']]
+                      ])
+                  }
+              }
+          }
 }
