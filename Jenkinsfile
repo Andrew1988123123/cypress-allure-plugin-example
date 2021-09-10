@@ -9,8 +9,8 @@ pipeline {
   stages {
     stage('build and test') {
       steps {
-        bat 'npm ci'
-        bat "npm run cy:attachments.spec"
+        sh 'npm ci'
+        sh "npm run cy:attachments.spec"
       }
     }
   }
