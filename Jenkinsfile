@@ -7,7 +7,7 @@ pipeline {
                 git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
                 bat 'npm install'
                 bat 'npm update'
-                bat 'npm run cy:cucumber:run'
+                bat 'npm run cy:attachments.spec'
             }
         }
     }

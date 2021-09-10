@@ -8,3 +8,4 @@ node_modules/
 results/
 test-results/
 yarn-error.log
+/allure-results/
