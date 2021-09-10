@@ -5,10 +5,10 @@ pipeline {
         stage('Node') {
             steps {
                 git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
-                bat 'npm install'
-                bat 'npm update'
-                bat 'npm run allure:clear'
-                bat 'npm run cy:attachments.spec'
+                sh 'npm install'
+                sh 'npm update'
+                sh 'npm run allure:clear'
+                sh 'npm run cy:attachments.spec'
             }
         }
     }
