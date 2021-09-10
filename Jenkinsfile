@@ -9,7 +9,6 @@ pipeline {
   stages {
     stage('build and test') {
       steps {
-        sh 'yarn ci'
         sh "yarn run cy:attachments.spec"
       }
     }
