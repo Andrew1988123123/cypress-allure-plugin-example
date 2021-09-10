@@ -1,14 +1,20 @@
 pipeline {
-    agent any
-    tools {nodejs "node"}
+agent {
+        docker {
+            image 'cypress/base:12.16.1'
+            args '-p 3000:3000'
+        }
+    }
     stages {
-        stage('Node') {
+        stage('Install Dependencies') {
             steps {
-                git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
-                bat 'npm install'
-                bat 'npm update'
-                bat 'npm run allure:clear'
-                bat 'npm run cy:attachments.spec'
+                sh 'npm ci'
+                sh 'npm run cy:verify'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'npm run cy:attachments.spec'
             }
         }
     }
