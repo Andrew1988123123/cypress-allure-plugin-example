@@ -8,6 +8,7 @@ agent {
     stages {
         stage('Install Dependencies') {
             steps {
+                git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
                 bat 'npm ci'
                 bat 'npm run cy:verify'
             }
