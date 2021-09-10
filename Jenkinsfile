@@ -1,33 +1,25 @@
 pipeline {
-agent {
-        docker {
-            image 'cypress/base:12.16.1'
-        }
+  agent {
+    // this image provides everything needed to run Cypress
+    docker {
+      image 'cypress/base:10'
     }
-    stages {
-        stage('Install Dependencies') {
-            steps {
-                bat 'npm ci'
-                bat 'npm run cy:verify'
-            }
-        }
-        stage('Test') {
-            steps {
-                bat 'npm run cy:attachments.spec'
-            }
-        }
+  }
+
+  stages {
+    stage('build and test') {
+      environment {
+        // we will be recording test results and video on Cypress dashboard
+        // to record we need to set an environment variable
+        // we can load the record key variable from credentials store
+        // see https://jenkins.io/doc/book/using/using-credentials/
+//         CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+      }
+
+      steps {
+        sh 'npm ci'
+        sh "npm run cy:attachments.spec"
+      }
     }
-          post {
-              always {
-                  script { // Wygenerowanie raportu allurowego
-                      allure([
-                              includeProperties: false,
-                              jdk              : '',
-                              properties       : [],
-                              reportBuildPolicy: 'ALWAYS',
-                              results          : [[path: 'target/allure-results']]
-                      ])
-                  }
-              }
-          }
+  }
 }
