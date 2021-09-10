@@ -8,13 +8,14 @@ agent {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
-                sh 'npm run cy:verify'
+                git url: 'https://github.com/AndrzejSierocinski/cypress-allure-plugin-example.git'
+                bat 'npm ci'
+                bat 'npm run cy:verify'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm run cy:attachments.spec'
+                bat 'npm run cy:attachments.spec'
             }
         }
     }
