@@ -8,13 +8,13 @@ agent {
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
-                sh 'npm run cy:verify'
+                bat 'npm ci'
+                bat 'npm run cy:verify'
             }
         }
         stage('Test') {
             steps {
-                sh 'npm run cy:attachments.spec'
+                bat 'npm run cy:attachments.spec'
             }
         }
     }
