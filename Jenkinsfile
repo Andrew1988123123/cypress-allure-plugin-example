@@ -1,10 +1,9 @@
 pipeline {
-agent {
-        docker {
+agent docker {
             image 'cypress/base:14.17.0'
             args '-p 3000:3000'
         }
-    }
+
     stages {
         stage('Install Dependencies') {
             steps {
