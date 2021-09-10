@@ -9,8 +9,8 @@ pipeline {
   stages {
     stage('build and test') {
       steps {
-        sh "yarn install"
-        sh "yarn update"
+        sh "yarn install --unsafe-perm=true --allow-root cypress"
+        sh "yarn update --unsafe-perm=true --allow-root cypress"
         sh "yarn run cy:attachments.spec"
       }
     }
